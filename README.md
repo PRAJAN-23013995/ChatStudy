@@ -1,5 +1,7 @@
 # Ex. No:1b 			Study of Client Server Chat Applications
-
+Name:PRAJAN P
+Regno:212223240121
+Date:09.09.2024
 ## Aim: 
 To perform a study on Client Server Chat Applications
 ## Introduction:
@@ -72,7 +74,65 @@ User authentication mechanisms are essential to ensure secure and authorized acc
 Client-server chat applications are versatile tools that facilitate real-time communication between users over a network. They incorporate various components, including server-side and client-side elements, and must consider factors such as security, scalability, and concurrency. As technology continues to advance, client-server chat applications remain integral for collaborative communication in various domains.
 
 Client-server chat applications are foundational to real-time communication over networks. They incorporate principles of socket programming, communication protocols, and security mechanisms to provide a seamless user experience. Understanding the basics of client-server chat applications is essential for developers involved in networked application development, as they form the backbone of various collaborative communication systems. As technology evolves, chat applications continue to adapt, incorporating new features and technologies to enhance user interaction and connectivity.
+## Program:
+Server:
+```
+import socket
 
+SERVER_HOST = '127.0.0.1'  
+SERVER_PORT = 12345        
+BUFFER_SIZE = 1024       
+
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket.bind((SERVER_HOST, SERVER_PORT))
+server_socket.listen(1)  
+
+print(f"[*] Listening on {SERVER_HOST}:{SERVER_PORT}")
+
+client_socket, client_address = server_socket.accept()
+print(f"[+] {client_address} connected.")
+
+while True:
+    message = client_socket.recv(BUFFER_SIZE).decode()
+    if not message:
+    print(f"Client: {message}")
+
+    message_to_send = input("Server: ")
+    client_socket.send(message_to_send.encode())
+
+client_socket.close()
+server_socket.close()
+```
+Client:
+```
+import socket
+
+SERVER_HOST = '127.0.0.1'  
+SERVER_PORT = 12345        
+BUFFER_SIZE = 1024          
+
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect((SERVER_HOST, SERVER_PORT))
+
+print(f"Connected to server at {SERVER_HOST}:{SERVER_PORT}")
+
+while True:
+
+    message_to_send = input("Client: ")
+    client_socket.send(message_to_send.encode())
+
+    message = client_socket.recv(BUFFER_SIZE).decode()
+    if not message:
+    print(f"Server: {message}")
+
+client_socket.close()
+```
+## Output:
+Server:
+![365626072-9e64e059-cab0-40d0-ba14-cc791bfa8954](https://github.com/user-attachments/assets/dd1e0b6d-556b-4f10-85a1-32f948779e47)
+
+Client:
+![365626079-afcc7b91-5fc1-4cc9-90d1-0a690c43053e](https://github.com/user-attachments/assets/4a90a007-e034-4467-abf8-7af75bf345df)
 
 ## Result:
 
